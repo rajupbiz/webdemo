@@ -21,10 +21,13 @@ import com.blob.model.Candidate;
 import com.blob.model.CandidateAddress;
 import com.blob.model.CandidateAstroDetail;
 import com.blob.model.CandidateContact;
+import com.blob.model.CandidateEducation;
 import com.blob.model.CandidateFamily;
+import com.blob.model.CandidateOccupation;
 import com.blob.model.CandidatePersonalDetail;
 import com.blob.model.User;
 import com.blob.model.ui.ContactInfo;
+import com.blob.model.ui.EduOccuInfo;
 import com.blob.model.ui.FamilyInfo;
 import com.blob.model.ui.PersonalInfo;
 import com.blob.security.SessionService;
@@ -76,7 +79,7 @@ public class ProfileController extends BaseController {
 		m.addAttribute("personalInfo", uiService.getPersonalInfoSectionForUI(c));
 		m.addAttribute("familyInfo", uiService.getFamilyInfoSectionForUI(c));
 		m.addAttribute("contactInfo", uiService.getContactInfoSectionForUI(c));
-		m.addAttribute("contactInfo", uiService.getContactInfoSectionForUI(c));
+		m.addAttribute("eduOccuInfo", uiService.getEducationInfoSectionForUI(c));
 		m.addAttribute("isNewCandidate", isNewCandidate);
 		sessionService.setMenuChangeCommonAttribtesInSession(request.getSession(), "update_profile", user);
 		return new ModelAndView("/update-profile", m.asMap());
@@ -217,6 +220,45 @@ public class ProfileController extends BaseController {
 		return new ModelAndView("fragments/f-contact-info :: contactInfoView", m.asMap());
 	}
 	
+	@RequestMapping(value="/eEducationInfo", method=RequestMethod.GET)
+	public ModelAndView eEducationInfo(){
+
+		Model m = new ExtendedModelMap();
+		User user = getLoggedInUser();
+		Candidate c = candidateService.getCandidateByUser(user);
+		m.addAttribute("eduOccuInfo", uiService.getEducationInfoSectionForUI(c));
+		return new ModelAndView("fragments/f-education-info :: educationInfoEdit", m.asMap());
+	}
+	
+	@RequestMapping(value="/vEducationInfo", method=RequestMethod.GET)
+	public ModelAndView vEducationInfo(){
+
+		Model m = new ExtendedModelMap();
+		User user = getLoggedInUser();
+		Candidate c = candidateService.getCandidateByUser(user);
+		m.addAttribute("eduOccuInfo", uiService.getEducationInfoSectionForUI(c));
+		return new ModelAndView("fragments/f-education-info :: educationInfoView", m.asMap());
+	}
+	
+	@RequestMapping(value="/sEducationInfo", method=RequestMethod.POST)
+	public ModelAndView sEducationInfo(@ModelAttribute("eduOccuInfo") EduOccuInfo eduOccuInfo, BindingResult result, Model model){
+
+		Model m = new ExtendedModelMap();
+		User user = getLoggedInUser();
+		Candidate c = candidateService.getCandidateByUser(user);
+		List<CandidateEducation> educations = uiService.getEducationsInfoFromUI(eduOccuInfo);
+		List<CandidateOccupation> occupations = uiService.getOccupationsInfoFromUI(eduOccuInfo);
+		educations = profileService.saveCandidateEducation(educations, c);
+		occupations = profileService.saveCandidateOccupation(occupations, c);
+		if(educations != null && !educations.isEmpty()){
+			c.setCandidateEducations(educations);
+		}
+		if(occupations != null && !occupations.isEmpty()){
+			c.setCandidateOccupations(occupations);
+		}
+		m.addAttribute("eduOccuInfo", uiService.getEducationInfoSectionForUI(c));
+		return new ModelAndView("fragments/f-education-info :: educationInfoView", m.asMap());
+	}
 	
 	@RequestMapping(value="/vPreviewProfile", method=RequestMethod.GET)
 	public ModelAndView vPreviewProfile(){

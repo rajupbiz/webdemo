@@ -83,7 +83,7 @@ $(document).ready(function() {
         style: "btn-default btn-sm"
     });
 
-    $("#education-degree-1").selectpicker({
+    /*$("#education-degree-1").selectpicker({
         style: "btn-default btn-sm"
     });
     
@@ -122,7 +122,7 @@ $(document).ready(function() {
     $("#occ-desg-2").selectpicker({
         style: "btn-default btn-sm"
     });
-    
+    */
     
     $('#first-name').bind('keypress keyup blur', function() {
         $('#birth-name').val($(this).val());
@@ -152,7 +152,7 @@ $(document).ready(function() {
     	}
     });
     
-    $('#education-degree-1').change(function(){
+   /* $('#education-degree-1').change(function(){
     	if($(this).find("option:selected").val() == 'specify-other-degree'){
     		$('#education-other-degree-1').prop('disabled', false);
     	}else{
@@ -293,7 +293,7 @@ $(document).ready(function() {
     		$('#occ-other-desg-2').val("");
     		$('#occ-other-desg-2').prop('disabled', true);
     	}
-    });
+    });*/
 	
 	$("#input-24").fileinput({
         initialPreview: [
@@ -324,6 +324,9 @@ function editInfo(section) {
 	case 'Contact':
 		$("#contactInfoSectionBody").load(ctxPath+"eContactInfo");
 		break;
+	case 'Education':
+		$("#educationInfoSectionBody").load(ctxPath+"eEducationInfo");
+		break;
 	default:
 		break;
 	}
@@ -339,6 +342,9 @@ function cancelEdit(section) {
 		break;
 	case 'Contact':
 		$("#contactInfoSectionBody").load(ctxPath+"vContactInfo");
+		break;
+	case 'Education':
+		$("#educationInfoSectionBody").load(ctxPath+"vEducationInfo");
 		break;
 	default:
 		break;
@@ -396,6 +402,17 @@ function saveInfo(section) {
 				$("#contactInfoSectionBody").replaceWith(response);
 			}
 		});
+	
+	case 'Education':
+		var $editEducationInfoForm = $('#editEducationInfoForm');
+		$.ajax({
+			url: $editEducationInfoForm.attr('action'),
+			type: 'post',
+			data: $editEducationInfoForm.serialize(),
+			success: function(response) {
+				$("#educationInfoSectionBody").replaceWith(response);
+			}
+		});
 		
 		break;
 		
@@ -412,7 +429,7 @@ function onChangeDropdown(dropdown){
 	
 	switch (dropdown) {
 	
-	// TODO: handling specify other options in state and country
+	// TODO: handling specify other options for state, country, desg, occupation, degree, specialization
 	case 'address-state':
 		if($("#address-state").val() != '' || $("#address-state option:selected").text() != 'Specify Other'){
 			$("#address-country option").each(function() {

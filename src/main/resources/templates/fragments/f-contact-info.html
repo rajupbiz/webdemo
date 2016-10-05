@@ -28,7 +28,7 @@
 						</div>
 					</fieldset>
 					<fieldset>
-						<legend style="font-size: 13px;">Contact</legend>
+						<legend style="font-size: 13px;">Contact(s)</legend>
 						<div class="row">
 							<div class="col-md-2 g-view-label-profile"></div>
 							<div class="col-md-3 g-view-label-profile" style="text-align: left; font-style: italic;">Contact Person</div>
@@ -114,7 +114,7 @@
 						</div>
 					</fieldset>
 					<fieldset>
-						<legend style="font-size: 13px;">Contact</legend>
+						<legend style="font-size: 13px;">Contact(s)</legend>
 						<div class="form-group form-group-sm"  th:each="currentContact, stat : *{contacts}">
 							<input type="hidden" th:field="*{contacts[__${stat.index}__].id}">
 							<label class="col-md-3 control-label" for="first-name">Contact Person Full Name <span th:text="*{__${stat.index}__+1}"></span> : </label>

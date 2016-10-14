@@ -1,4 +1,4 @@
-package com.blob.controller;
+package com.blob.controller.common;
 
 import java.util.Date;
 
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.blob.controller.BaseController;
 import com.blob.enums.StatusEnum;
 import com.blob.model.common.User;
 import com.blob.security.SessionService;
-import com.blob.service.SignupService;
+import com.blob.service.common.SignupService;
 import com.blob.util.GResponse;
-
 
 @Controller
 public class SignupController extends BaseController {

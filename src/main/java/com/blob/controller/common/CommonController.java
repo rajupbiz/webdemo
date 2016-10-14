@@ -1,6 +1,8 @@
-package com.blob.controller;
+package com.blob.controller.common;
 
 import org.springframework.stereotype.Controller;
+
+import com.blob.controller.BaseController;
 
 
 @Controller

@@ -1,5 +1,6 @@
 package com.blob.security;
 
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Service;
 import com.blob.model.candidate.Candidate;
 import com.blob.model.common.GMessage;
 import com.blob.model.common.User;
-import com.blob.service.CandidateService;
-import com.blob.service.CommonService;
+import com.blob.service.candidate.CandidateService;
+import com.blob.service.common.CommonService;
 import com.blob.util.DateUtils;
 
 @Service

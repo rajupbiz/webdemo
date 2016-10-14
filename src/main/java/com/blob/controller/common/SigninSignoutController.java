@@ -1,4 +1,4 @@
-package com.blob.controller;
+package com.blob.controller.common;
 
 import javax.annotation.Resource;
 
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blob.controller.BaseController;
 import com.blob.dao.common.UserDao;
 import com.blob.model.common.User;
 import com.blob.security.SessionService;

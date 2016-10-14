@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
@@ -13,23 +14,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.blob.dao.CandidateAstroDetailDao;
-import com.blob.dao.CandidateDao;
-import com.blob.dao.CandidateFamilyDao;
-import com.blob.dao.CandidatePersonalDetailDao;
-import com.blob.model.Candidate;
-import com.blob.model.CandidateAddress;
-import com.blob.model.CandidateAstroDetail;
-import com.blob.model.CandidateContact;
-import com.blob.model.CandidateEducation;
-import com.blob.model.CandidateFamily;
-import com.blob.model.CandidateOccupation;
-import com.blob.model.CandidatePersonalDetail;
-import com.blob.model.User;
+import com.blob.dao.candidate.CandidateAstroDetailDao;
+import com.blob.dao.candidate.CandidateDao;
+import com.blob.dao.candidate.CandidateFamilyDao;
+import com.blob.dao.candidate.CandidatePersonalDetailDao;
+import com.blob.dao.common.GPhotoDao;
+import com.blob.model.candidate.Candidate;
+import com.blob.model.candidate.CandidateAddress;
+import com.blob.model.candidate.CandidateAstroDetail;
+import com.blob.model.candidate.CandidateContact;
+import com.blob.model.candidate.CandidateEducation;
+import com.blob.model.candidate.CandidateFamily;
+import com.blob.model.candidate.CandidateOccupation;
+import com.blob.model.candidate.CandidatePersonalDetail;
+import com.blob.model.common.GPhoto;
+import com.blob.model.common.User;
 import com.blob.model.ui.ContactInfo;
 import com.blob.model.ui.EduOccuInfo;
 import com.blob.model.ui.FamilyInfo;
 import com.blob.model.ui.PersonalInfo;
+import com.blob.model.ui.PhotoInfo;
 import com.blob.security.SessionService;
 import com.blob.service.CandidateService;
 import com.blob.service.ProfileService;
@@ -50,6 +54,9 @@ public class ProfileController extends BaseController {
 	
 	@Resource
 	private CandidateDao candidateDao;
+	
+	@Resource
+	private GPhotoDao gPhotoDao;
 	
 	@Resource
 	private CandidatePersonalDetailDao candidatePersonalDetailDao;
@@ -269,4 +276,39 @@ public class ProfileController extends BaseController {
 		return new ModelAndView("/preview-profile", m.asMap());
 	}
 	
+	@RequestMapping(value="/ePhotoInfo", method=RequestMethod.GET)
+	public ModelAndView ePhotoInfo(){
+
+		Model m = new ExtendedModelMap();
+		User user = getLoggedInUser();
+		Candidate c = candidateService.getCandidateByUser(user);
+		m.addAttribute("photoInfo", uiService.getPhotoInfoSectionForUI(c));
+		return new ModelAndView("fragments/f-photo-info :: photoInfoEdit", m.asMap());
+	}
+	
+	@RequestMapping(value="/vPhotoInfo", method=RequestMethod.GET)
+	public ModelAndView vPhotoInfo(){
+
+		Model m = new ExtendedModelMap();
+		User user = getLoggedInUser();
+		Candidate c = candidateService.getCandidateByUser(user);
+		m.addAttribute("photoInfo", uiService.getPhotoInfoSectionForUI(c));
+		return new ModelAndView("fragments/f-photo-info :: photoInfoView", m.asMap());
+	}
+	
+	@RequestMapping(value="/sPhotoInfo", method=RequestMethod.POST)
+	public ModelAndView sPhotoInfo(@ModelAttribute("photoInfo") PhotoInfo photoInfo, BindingResult result, Model model){
+
+		Model m = new ExtendedModelMap();
+		User user = getLoggedInUser();
+		Candidate c = candidateService.getCandidateByUser(user);
+		List<GPhoto> pi = uiService.getPhotosInfoFromUI(photoInfo, user);
+		if(CollectionUtils.isNotEmpty(pi)){
+			for (GPhoto gPhoto : pi) {
+				gPhotoDao.save(gPhoto);
+			}
+		}
+		m.addAttribute("photoInfo", uiService.getPhotoInfoSectionForUI(c));
+		return new ModelAndView("fragments/f-photo-info :: photoInfoView", m.asMap());
+	}
 }

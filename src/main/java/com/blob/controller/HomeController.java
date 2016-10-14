@@ -8,13 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.blob.dao.UserDao;
-import com.blob.model.Candidate;
-import com.blob.model.User;
+import com.blob.dao.common.UserDao;
+import com.blob.model.candidate.Candidate;
+import com.blob.model.common.User;
+import com.blob.security.SessionService;
 import com.blob.security.SigninSignoutService;
 import com.blob.service.CandidateService;
 import com.blob.service.UIService;
-import com.blob.security.SessionService;
 
 @Controller
 public class HomeController extends BaseController {

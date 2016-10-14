@@ -327,6 +327,9 @@ function editInfo(section) {
 	case 'Education':
 		$("#educationInfoSectionBody").load(ctxPath+"eEducationInfo");
 		break;
+	case 'Photo':
+		$("#photoInfoSectionBody").load(ctxPath+"ePhotoInfo");
+		break;
 	default:
 		break;
 	}
@@ -345,6 +348,9 @@ function cancelEdit(section) {
 		break;
 	case 'Education':
 		$("#educationInfoSectionBody").load(ctxPath+"vEducationInfo");
+		break;
+	case 'Photo':
+		$("#photoInfoSectionBody").load(ctxPath+"vPhotoInfo");
 		break;
 	default:
 		break;
@@ -411,6 +417,19 @@ function saveInfo(section) {
 			data: $editEducationInfoForm.serialize(),
 			success: function(response) {
 				$("#educationInfoSectionBody").replaceWith(response);
+			}
+		});
+		
+		break;
+		
+	case 'Photo':
+		var $editPhotoInfoForm = $('#editPhotoInfoForm');
+		$.ajax({
+			url: $editPhotoInfoForm.attr('action'),
+			type: 'post',
+			data: $editPhotoInfoForm.serialize(),
+			success: function(response) {
+				$("#photoInfoSectionBody").replaceWith(response);
 			}
 		});
 		

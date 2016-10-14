@@ -14,9 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.blob.dao.UserDao;
-import com.blob.model.User;
-import com.blob.model.UserRole;
+import com.blob.dao.common.UserDao;
+import com.blob.model.common.User;
+import com.blob.model.common.UserRole;
 
 @Component
 @Transactional

@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.blob.dao.UserDao;
+import com.blob.dao.common.UserDao;
 
 @Service
 public class SigninSignoutService {

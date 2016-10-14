@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
-import com.blob.dao.UserDao;
-import com.blob.model.User;
+import com.blob.dao.common.UserDao;
+import com.blob.model.common.User;
 
 @Controller
 public class BaseController {

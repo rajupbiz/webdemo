@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSessionEvent;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.stereotype.Component;
 
-import com.blob.dao.UserDao;
+import com.blob.dao.common.UserDao;
 
 @Component
 public class GSessionListener extends HttpSessionEventPublisher {

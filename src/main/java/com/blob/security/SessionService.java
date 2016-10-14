@@ -1,17 +1,29 @@
 package com.blob.security;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
-import com.blob.model.Candidate;
-import com.blob.model.User;
+import com.blob.model.candidate.Candidate;
+import com.blob.model.common.GMessage;
+import com.blob.model.common.User;
+import com.blob.service.CandidateService;
+import com.blob.service.CommonService;
 import com.blob.util.DateUtils;
 
 @Service
 public class SessionService {
+	
+	@Resource
+	private CommonService commonService;
 
+	@Resource
+	private CandidateService candidateService;
+	
 	public void setLoginSessionData(HttpSession session, User user) throws Exception {
 		System.out.println(" set session data ");
 		String lastLoggedIn = null;
@@ -27,11 +39,11 @@ public class SessionService {
 	public void setMenuChangeCommonAttribtesInSession(HttpSession session, String tab, User user){
 		Candidate candidate = null;
 		Integer noOfUnreadMessages = 0, noOfShortlistedProfiles = 0;
-		if(user != null && CollectionUtils.isNotEmpty(user.getCandidates())){
-			candidate = user.getCandidates().get(0);
-			// TODO: to get no of unread messages instead of all
-			if(CollectionUtils.isNotEmpty(candidate.getCandidateMessages())){
-				noOfUnreadMessages = candidate.getCandidateMessages().size();
+		candidate = commonService.getCandidateByUser(user);
+		if(candidate != null){
+			List<GMessage> messages = candidateService.getCandidateMessages(candidate);
+			if(CollectionUtils.isNotEmpty(messages)){
+				noOfUnreadMessages = messages.size();
 			}
 			if(CollectionUtils.isNotEmpty(candidate.getShortlistedCandidates())){
 				noOfShortlistedProfiles = candidate.getShortlistedCandidates().size();

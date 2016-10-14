@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.blob.dao.UserDao;
-import com.blob.model.User;
+import com.blob.dao.common.UserDao;
+import com.blob.model.common.User;
 import com.blob.security.SessionService;
 import com.blob.security.SigninSignoutService;
 import com.blob.util.DateUtils;

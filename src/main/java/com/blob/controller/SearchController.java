@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.blob.model.User;
+import com.blob.model.common.User;
 import com.blob.security.SessionService;
-
 
 @Controller
 public class SearchController extends BaseController {

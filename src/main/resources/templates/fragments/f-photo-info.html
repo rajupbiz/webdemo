@@ -2,10 +2,49 @@
 <html lang="en">
 <head></head>
 <div class="panel panel-info">
-	<!-- <div class="panel-heading">
-		<b>Contact Information</b>
-	</div> -->
-	<div class="panel-body" style="padding-left: 20px;" th:fragment="photoInfo" id="photoInfoSectionBody">
+	<div class="panel-body" style="padding-left: 20px;" th:fragment="photoInfoView" id="photoInfoSectionBody">
+		<div class="row" style="padding-left: 30px;">
+			<div class="col-md-12">
+				<form action="#" method="post" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group form-group-sm">
+							<div class="row" style="padding-bottom: 10px;">
+								<div class="col-md-1"></div>
+								<div class="col-md-2" style="text-align: center;">
+									<div class="row">
+										<div class="col-md-12">
+											<a class="thumbnail" href="assets/img/p1.jpg" data-lightbox="example-set" data-title="p1">
+												<img class="g-img img-rounded img-responsive" src="assets/img/p1.jpg" alt="p1">
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2" style="text-align: center;">
+									<div class="row">
+										<div class="col-md-12">
+											<a class="thumbnail" href="assets/img/p2.jpg" data-lightbox="example-set" data-title="p2">
+												<img class="g-img img-rounded img-responsive" src="assets/img/p2.jpg" alt="p2">
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-1"></div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="row" style="padding-top: 20px;">
+						<div class="col-md-12" style="text-align: center;">
+							<button id="personal-info-edit-btn"	class="btn btn-primary btn-sm" type="button" style="width: 100px;" onclick="editInfo('Photo')">
+								<span class="text-uppercase g-btn-text">Edit</span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="panel-body" style="padding-left: 20px;" th:fragment="photoInfoEdit" id="photoInfoSectionBody">
 		<div class="row" style="padding-left: 30px;">
 			<div class="col-md-12">
 				<fieldset>
@@ -58,8 +97,11 @@
 					</fieldset>
 					<div class="form-group form-group-sm" style="padding-top: 20px;">
 						<div class="col-md-12" style="text-align: center;">
-							<button id="photos-save-btn"  class="btn btn-primary btn-sm" type="button" style="width: 100px;">
-								<span class="g-btn-text text-uppercase">Save</span>
+							<button id="photo-info-save-btn" class="btn btn-primary btn-sm" type="button" style="width: 100px;" onclick="saveInfo('Photo')">
+								<span class="text-uppercase g-btn-text">Save</span>
+							</button>
+							<button id="photo-info-save-btn" class="btn btn-primary btn-sm" type="button" style="width: 100px;" onclick="cancelEdit('Photo')">
+								<span class="text-uppercase g-btn-text">Cancel</span>
 							</button>
 						</div>
 					</div>
